@@ -7,6 +7,7 @@ const typeDefs = gql`
   ) on FIELD_DEFINITION
 
   scalar Date
+  scalar Object
 
   type Query {
     _empty: String

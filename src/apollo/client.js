@@ -1,26 +1,15 @@
 import { useMemo } from 'react';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 let apolloClient;
-
-function createIsomorphLink() {
-  if (typeof window === 'undefined') {
-    const { SchemaLink } = require('@apollo/client/link/schema');
-    const { schema } = require('./schema');
-    return new SchemaLink({ schema });
-  } else {
-    const { HttpLink } = require('@apollo/client/link/http');
-    return new HttpLink({
-      uri: '/api/graphql',
-      credentials: 'same-origin',
-    });
-  }
-}
 
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: createIsomorphLink(),
+    link: createHttpLink({
+      uri: typeof window === 'undefined' ? 'http://localhost:3000/api/graphql' : '/api/graphql',
+      credentials: 'same-origin',
+    }),
     cache: new InMemoryCache(),
   });
 }
@@ -33,8 +22,10 @@ export function initializeApollo(initialState = null) {
   if (initialState) {
     _apolloClient.cache.restore(initialState);
   }
+
   // For SSG and SSR always create a new Apollo Client
   if (typeof window === 'undefined') return _apolloClient;
+
   // Create the Apollo Client once in the client
   if (!apolloClient) apolloClient = _apolloClient;
 

@@ -1,3 +1,16 @@
-.welcome__message {
-  font-size: var(--font-size-xxl);
+.recipe {
+  border: var(--space1) solid var(--white);
+  margin-bottom: var(--space8);
+  padding: var(--space8);
+  width: 600px;
+}
+
+.recipe__title {
+  font-size: var(--font-size-m);
+}
+
+.recipe__image {
+  position: relative;
+  height: 400px;
+  width: 100%;
 }

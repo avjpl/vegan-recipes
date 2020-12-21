@@ -1,7 +1,8 @@
 .layout {
-  height: 100%;
+  padding-top: var(--space30);
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   background: var(--light-grey);
 }

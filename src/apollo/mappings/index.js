@@ -1,0 +1,1 @@
+export { mapPost } from './post';

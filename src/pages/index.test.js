@@ -1,32 +1,52 @@
-import { render } from 'test-utils';
+import { render, waitFor, act } from 'test-utils';
 
 import Home from './index';
-import { GREETING_QUERY } from '../apollo/queries/greeting';
+import { RECIPES_QUERY } from '../apollo/queries';
+
+jest.mock('next/image', () => {
+  const ImageMock = () => <div />;
+
+  return ImageMock;
+});
 
 const mocks = [
   {
     request: {
-      query: GREETING_QUERY,
+      query: RECIPES_QUERY,
     },
     result: {
       data: {
-        greeting: {
-          message: 'Yokoso',
-        },
+        recipes: [
+          {
+            id: 1,
+            title: 'title 1',
+            slug: '',
+            body: {},
+          },
+          {
+            id: 2,
+            title: 'title 2',
+            slug: '',
+            body: {},
+          },
+        ],
       },
     }
   },
 ];
 
-test('shoudl have loading message', async () => {
-  const { getByText } = render(<Home />, { mocks });
-
-  expect(getByText('Loading...')).toBeInTheDocument();
-});
-
-test('should have welcome message', async () => {
-  const { findByText } = render(<Home />, { mocks });
-
-  const message = await findByText('Yokoso');
-  expect(message).toBeInTheDocument();
+describe('recipes', () => {
+  test('shoudl have loading message', async () => {
+    const { getByText } = render(<Home />, { mocks });
+  
+    expect(getByText('Loading...')).toBeInTheDocument();
+  });
+  
+  test('should render 2 recipes', async () => {
+    act(() => { render(<Home />, { mocks }); });
+    
+    await waitFor(() => {
+      expect(document.querySelectorAll('.recipe')).toHaveLength(2);
+    });
+  });
 });
