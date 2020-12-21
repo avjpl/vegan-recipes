@@ -1,0 +1,15 @@
+@import './reset.css';
+@import './variables.css';
+@import './fonts.css';
+
+html,
+body,
+div[id="__next"],
+div[id="__next"]>div {
+  height: 100%;
+}
+
+body {
+  font-family: 'ClearSans', 'Helvetica Neue', 'Helvetica',
+    'Arial', sans-serif;
+}
