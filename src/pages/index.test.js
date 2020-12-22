@@ -9,6 +9,12 @@ jest.mock('next/image', () => {
   return ImageMock;
 });
 
+jest.mock('next/link', () => {
+  const LinkMock = () => <div />;
+
+  return LinkMock;
+});
+
 const mocks = [
   {
     request: {
@@ -21,13 +27,27 @@ const mocks = [
             id: 1,
             title: 'title 1',
             slug: '',
-            body: {},
+            image: {
+              file: {
+                url: '',
+                details: {
+                  image: {}
+                }
+              }
+            },
           },
           {
             id: 2,
             title: 'title 2',
             slug: '',
-            body: {},
+            image: {
+              file: {
+                url: '',
+                details: {
+                  image: {}
+                }
+              }
+            },
           },
         ],
       },

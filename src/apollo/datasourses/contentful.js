@@ -14,13 +14,41 @@ class ContentfulAPI extends RESTDataSource {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    const data = await this.get(
+    const data = JSON.parse(await this.get(
       `spaces/${this.context.contentful_space_id}/entries`,
       { content_type: type },
       headers,
-    );
+    ));
 
-    return JSON.parse(data);
+    data.items = data.items.map(item => {
+      const id = item.fields.image.sys.id;
+      item.fields.image = data.includes.Asset.find(asset => asset.sys.id === id).fields;
+      return item;
+    });
+
+    return data;
+  }
+
+  async getEntry(type, slug) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const data = JSON.parse(await this.get(
+      `spaces/${this.context.contentful_space_id}/entries`,
+      {
+        content_type: type,
+        ['fields.slug']: slug 
+      },
+      headers,
+    ));
+
+    data.items = data.items.map(item => {
+      const id = item.fields.image.sys.id;
+      item.fields.image = data.includes.Asset.find(asset => asset.sys.id === id).fields;
+      return item;
+    });
+
+    return data;
   }
 }
 

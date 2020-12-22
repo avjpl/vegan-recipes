@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 
 import Layout from '../components/layout';
@@ -23,8 +24,11 @@ export default function Recipes() {
             <div className={css.recipe} key={recipe.id}>
               <h2 className={css.recipe__title}>{recipe.title}</h2>
               <div className={css.recipe__image}>
-                <Image src={'https://placeimg.com/640/480/tech'} layout="fill" />
+                <Image src={`https:${recipe.image.file.url}`} layout='fill' />
               </div>
+              <Link href={`/recipe/${recipe.slug}`}>
+                <a>Recipe</a>
+              </Link>
             </div>
           );
         })

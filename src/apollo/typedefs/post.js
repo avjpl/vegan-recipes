@@ -4,27 +4,49 @@ import { GraphQLObject } from '../types';
 import { mapPost } from '../mappings';
 
 const typeDefs = gql`
-  type POST {
+  type Details {
+    size: Int
+    image: Object
+  }
+
+  type File {
+    url: String
+    details: Details
+    filename: String
+    type: String
+  }
+
+  type Asset {
+    title: String
+    file: File
+  }
+
+  type Post {
     id: ID!
     title: String!
     slug: String!
-    image: String
+    image: Asset
     body: Object!
-    recipe: String!
+    video: String
   }
 
   extend type Query {
-    post: [POST!]!
+    posts: [Post!]!
+    post(slug: String!): Post
   }
 `;
 
 const resolvers = {
   Object: GraphQLObject,
   Query: {
-    post: async (_, __, { dataSources: { contentfulAPI } }) => {
-      const { items } = await contentfulAPI.getEntries('blogPost');
+    posts: async (_, __, { dataSources: { contentfulAPI } }) => {
+      const { items } = await contentfulAPI.getEntries('recipe');
       return items.map(mapPost);
     },
+    post: async (_, { slug }, { dataSources: { contentfulAPI } }) => {
+      const { items } = await contentfulAPI.getEntry('recipe', slug);
+      return items.map(mapPost)[0];
+    }
   },
 };
 
