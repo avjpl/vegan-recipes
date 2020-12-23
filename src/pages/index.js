@@ -15,7 +15,7 @@ export default function Recipes() {
 
   if (error) return <div>Errored</div>;
   if (loading) return <div>Loading...</div>;
-
+  
   return (
     <Layout>
       {
@@ -24,7 +24,10 @@ export default function Recipes() {
             <div className={css.recipe} key={recipe.id}>
               <h2 className={css.recipe__title}>{recipe.title}</h2>
               <div className={css.recipe__image}>
-                <Image src={`https:${recipe.image.file.url}`} layout='fill' />
+                <Image
+                  src={`https:${recipe.image.file.url}`}
+                  layout='fill'
+                />
               </div>
               <Link href={`/recipe/${recipe.slug}`}>
                 <a>Recipe</a>

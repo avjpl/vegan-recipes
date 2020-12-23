@@ -3,17 +3,7 @@ import { render, waitFor, act } from 'test-utils';
 import Home from './index';
 import { RECIPES_QUERY } from '../apollo/queries';
 
-jest.mock('next/image', () => {
-  const ImageMock = () => <div />;
-
-  return ImageMock;
-});
-
-jest.mock('next/link', () => {
-  const LinkMock = () => <div />;
-
-  return LinkMock;
-});
+jest.mock('next/link', () => ({ children }) => children);
 
 const mocks = [
   {
@@ -29,7 +19,7 @@ const mocks = [
             slug: '',
             image: {
               file: {
-                url: '',
+                url: '//images.ctfassets.net/fake.img',
                 details: {
                   image: {}
                 }
@@ -42,7 +32,7 @@ const mocks = [
             slug: '',
             image: {
               file: {
-                url: '',
+                url: '//images.ctfassets.net/fake.img',
                 details: {
                   image: {}
                 }
