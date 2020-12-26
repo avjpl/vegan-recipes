@@ -1,6 +1,6 @@
 import { render, waitFor, act } from 'test-utils';
 
-import Home from './index';
+import Home from '../pages/index';
 import { RECIPES_QUERY } from '../apollo/queries';
 
 jest.mock('next/link', () => ({ children }) => children);
