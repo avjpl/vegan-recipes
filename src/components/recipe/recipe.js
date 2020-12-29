@@ -12,7 +12,6 @@ import css from './recipe.module.css';
 
 const Recipe = ({ image, slug }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleOpen = () => setIsOpen(!isOpen);
 
   return (

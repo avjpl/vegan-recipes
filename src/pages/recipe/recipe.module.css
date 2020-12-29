@@ -1,8 +1,8 @@
 .recipe {
+  margin: 0 auto var(--space40);
+  width: 50em;
   border: var(--space1) solid var(--white);
-  margin-bottom: var(--space8);
   padding: var(--space8);
-  width: 600px;
 }
 
 .recipe__title {
@@ -11,6 +11,12 @@
 
 .recipe__image {
   position: relative;
-  height: 400px;
+  height: 700px;
   width: 100%;
+}
+
+.recipe__video {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space20);
 }

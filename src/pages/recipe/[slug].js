@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import propTypes from 'prop-types';
 import { useQuery } from '@apollo/client';
+import ReactPlayer from 'react-player';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-import Layout from '../../components/layout';
 import { initializeApollo } from '../../apollo/client';
 import { RECIPES_QUERY, RECIPE_QUERY } from '../../apollo/queries';
 
-import css from './post.module.css';
+import css from './recipe.module.css';
 
 export default function Recipe({ slug }) {
   const {
@@ -20,19 +20,29 @@ export default function Recipe({ slug }) {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <Layout>
+    <div className={css.recipe}>
       <h1>{recipe.title}</h1>
+
       <div className={css.recipe__image}>
         <Image src={`https:${recipe.image.file.url}`} layout='fill' />
       </div>
-      {documentToReactComponents(recipe?.body)}
-      { recipe.video && <p>{recipe.video}</p> }
-    </Layout>
+
+      <div className={css.recipe__body}>
+        {documentToReactComponents(recipe?.body)}
+      </div>
+
+      {
+        recipe.video && 
+        <div className={css.recipe__video}>
+          <ReactPlayer url={recipe.video} />
+        </div>
+      }
+    </div>
   );
 }
 
 Recipe.propTypes = {
-  slug: propTypes.string.isRequired
+  slug: propTypes.string.isRequired,
 };
 
 export async function getStaticPaths() {
@@ -43,12 +53,10 @@ export async function getStaticPaths() {
   });
 
   return {
-    paths: recipes.map(recipe => {
-      return {
-        params: { slug: recipe.slug }
-      };
-    }),
-    fallback: true
+    paths: recipes.map(recipe => ({
+      params: { slug: recipe.slug },
+    })),
+    fallback: true,
   };
 }
 
@@ -57,7 +65,7 @@ export async function getStaticProps({ params }) {
 
   await apolloClient.query({
     query: RECIPE_QUERY,
-    variables: { slug: params.slug }
+    variables: { slug: params.slug },
   });
 
   return {

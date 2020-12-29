@@ -2,14 +2,54 @@
 @import './variables.css';
 @import './fonts.css';
 
-html,
-body,
-div[id="__next"],
-div[id="__next"]>div {
-  height: 100%;
-}
-
 body {
   font-family: 'ClearSans', 'Helvetica Neue', 'Helvetica',
     'Arial', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: var(--font-size-base) 0;
+}
+
+h1 {
+  font-size: var(--font-size-xl);
+}
+
+h2 {
+  font-size: var(--font-size-l);
+}
+
+h3 {
+  font-size: var(--font-size-m);
+}
+
+h4 {
+  font-size: var(--font-size-base);
+}
+
+h5 {
+  font-size: var(--font-size-s);
+}
+
+h6 {
+  font-size: var(--font-size-xs);
+}
+
+
+ul,
+ol {
+  margin-left: var(--space40);
+}
+
+ul {
+  list-style: disc;
+}
+
+ol {
+  list-style: decimal;
 }
