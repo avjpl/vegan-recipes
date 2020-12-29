@@ -23,9 +23,7 @@ export default function Recipe({ slug }) {
     <div className={css.recipe}>
       <h1>{recipe.title}</h1>
 
-      <div className={css.recipe__image}>
-        <Image src={`https:${recipe.image.file.url}`} layout='fill' />
-      </div>
+      <Image src={`https:${recipe.image.file.url}`} {...recipe.image.file.details.image} />
 
       <div className={css.recipe__body}>
         {documentToReactComponents(recipe?.body)}

@@ -1,6 +1,6 @@
 .recipe {
   margin: 0 auto var(--space40);
-  width: 50em;
+  max-width: 45em;
   border: var(--space1) solid var(--white);
   padding: var(--space8);
 }
@@ -10,9 +10,13 @@
 }
 
 .recipe__image {
-  position: relative;
+  /* position: relative;
   height: 700px;
-  width: 100%;
+  width: 100%; */
+}
+
+.recipe__body {
+  padding-left: var(--space10);
 }
 
 .recipe__video {
